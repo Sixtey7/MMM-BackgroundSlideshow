@@ -525,7 +525,7 @@ Module.register('MMM-BackgroundSlideshow', {
           let lat = EXIF.getTag(this, "GPSLatitude");
           let lon = EXIF.getTag(this, "GPSLongitude");
 
-          //let location = {lat: lat, lon: lon}
+          let location = {lat: lat, lon: lon}
           // // Only display the location if we have both longitute and lattitude
           // if (lat && lon) {
           //   // Get small map of location
@@ -606,10 +606,9 @@ Module.register('MMM-BackgroundSlideshow', {
           imageProps.push(`${this.imageIndex} of ${this.imageList.length}`);
           break;
         case 'location':
-          // if (imageLoc.lat && imageLoc.lon) {
-          //  imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
-          // }
-          Log.warn('we asked for a location')
+          if (imageLoc.lat && imageLoc.lon) {
+            imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
+          }
           break;
         default:
           Log.warn(
