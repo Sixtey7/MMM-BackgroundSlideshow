@@ -522,13 +522,15 @@ Module.register('MMM-BackgroundSlideshow', {
             }
           }
           // TODO: allow for location lookup via openMaps
-          // let lat = EXIF.getTag(this, "GPSLatitude");
-          // let lon = EXIF.getTag(this, "GPSLongitude");
+          let lat = EXIF.getTag(this, "GPSLatitude");
+          let lon = EXIF.getTag(this, "GPSLongitude");
+
+          let location = {lat: lat, lon: lon}
           // // Only display the location if we have both longitute and lattitude
           // if (lat && lon) {
           //   // Get small map of location
           // }
-          this.updateImageInfo(decodeURI(image.src), dateTime);
+          this.updateImageInfo(decodeURI(image.src), dateTime, location);
         }
 
         if (!this.browserSupportsExifOrientationNatively) {
@@ -570,7 +572,7 @@ Module.register('MMM-BackgroundSlideshow', {
     }
   },
 
-  updateImageInfo: function (imageSrc, imageDate) {
+  updateImageInfo: function (imageSrc, imageDate, imageLoc) {
     let imageProps = [];
     this.config.imageInfo.forEach((prop, idx) => {
       switch (prop) {
@@ -603,6 +605,10 @@ Module.register('MMM-BackgroundSlideshow', {
         case 'imagecount':
           imageProps.push(`${this.imageIndex} of ${this.imageList.length}`);
           break;
+        case 'location':
+          if (imageLoc.lat && imageLoc.lon) {
+            imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
+          }
         default:
           Log.warn(
             prop +
