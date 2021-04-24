@@ -530,7 +530,7 @@ Module.register('MMM-BackgroundSlideshow', {
           // if (lat && lon) {
           //   // Get small map of location
           // }
-          this.updateImageInfo(decodeURI(image.src), dateTime);
+          this.updateImageInfo(decodeURI(image.src), dateTime), location;
         }
 
         if (!this.browserSupportsExifOrientationNatively) {
@@ -572,7 +572,7 @@ Module.register('MMM-BackgroundSlideshow', {
     }
   },
 
-  updateImageInfo: function (imageSrc, imageDate) {
+  updateImageInfo: function (imageSrc, imageDate, imageLoc) {
     let imageProps = [];
     this.config.imageInfo.forEach((prop, idx) => {
       switch (prop) {
