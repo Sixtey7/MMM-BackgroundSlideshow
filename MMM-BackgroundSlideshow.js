@@ -530,7 +530,7 @@ Module.register('MMM-BackgroundSlideshow', {
           // if (lat && lon) {
           //   // Get small map of location
           // }
-          this.updateImageInfo(decodeURI(image.src), dateTime, {});
+          this.updateImageInfo(decodeURI(image.src), dateTime);
         }
 
         if (!this.browserSupportsExifOrientationNatively) {
@@ -572,7 +572,7 @@ Module.register('MMM-BackgroundSlideshow', {
     }
   },
 
-  updateImageInfo: function (imageSrc, imageDate, imageLoc) {
+  updateImageInfo: function (imageSrc, imageDate) {
     let imageProps = [];
     this.config.imageInfo.forEach((prop, idx) => {
       switch (prop) {
@@ -606,9 +606,11 @@ Module.register('MMM-BackgroundSlideshow', {
           imageProps.push(`${this.imageIndex} of ${this.imageList.length}`);
           break;
         case 'location':
-          if (imageLoc.lat && imageLoc.lon) {
-            imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
-          }
+          // if (imageLoc.lat && imageLoc.lon) {
+          //  imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
+          // }
+          Log.warn('we asked for a location')
+          break;
         default:
           Log.warn(
             prop +
