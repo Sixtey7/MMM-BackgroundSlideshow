@@ -34,7 +34,7 @@ Module.register('MMM-BackgroundSlideshow', {
     // show a panel containing information about the image currently displayed.
     showImageInfo: false,
     // a comma separated list of values to display: name, date, geo (TODO)
-    imageInfo: 'name, date, imagecount',
+    imageInfo: 'name, date, imagecount, location',
     // location of the info div
     imageInfoLocation: 'bottomRight', // Other possibilities are: bottomLeft, topLeft, topRight
     // transition speed from one image to the other, transitionImages must be true
@@ -106,7 +106,7 @@ Module.register('MMM-BackgroundSlideshow', {
     // this.errorMessage = null;
 
     //validate imageinfo property.  This will make sure we have at least 1 valid value
-    const imageInfoRegex = /\bname\b|\bdate\b/gi;
+    const imageInfoRegex = /\bname\b|\bdate\b|\blocation\b/gi;
     if (
       this.config.showImageInfo &&
       !imageInfoRegex.test(this.config.imageInfo)
@@ -606,7 +606,7 @@ Module.register('MMM-BackgroundSlideshow', {
           imageProps.push(`${this.imageIndex} of ${this.imageList.length}`);
           break;
         case 'location':
-          if (imageLoc.lat && imageLoc.lon) {
+          if ((typeof imageLoc.lat !== 'undefined') && (typeof imageLoc.lon !== 'undefined')) {
             imageProps.push(`Lat: ${imageLoc.lat}, Lon: ${imageLoc.lon}`);
           }
           break;
